@@ -65,6 +65,13 @@ async def main(request: Request):
                     "max_tokens": 200,
                 },
             )
+            r = await client.post(...)
+
+# ЛОГИРОВАНИЕ ДЛЯ ОТЛАДКИ
+print(f"DeepSeek status: {r.status_code}")
+print(f"DeepSeek body: {r.text[:500]}")  # первые 500 символов
+
+r.raise_for_status()
         r.raise_for_status()
         data = r.json()
         answer = (data.get("choices", [{}])[0].get("message", {}).get("content") or "").strip()
